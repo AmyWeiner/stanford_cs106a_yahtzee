@@ -53,6 +53,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		reRoll(player, name, dice);
 		ui.printMessage("Select a category for this roll.");
 		int category = ui.waitForPlayerToSelectCategory();
+		int score = calculateScore(category);
 		//ui.updateScorecard(category, player, score);
 	}
 
@@ -67,6 +68,31 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			ui.displayDice(dice);
 		}
 	}
+	
+	private int calculateScore(int category) {
+		switch (category) {
+		case 0: break;
+		case 1: break;
+		case 2: break;
+		case 3: break;
+		case 4: break;
+		case 5: break;
+		case 6: break;
+		case 7: break;
+		case 8: break;
+		case 9: break;
+		case 10: break;
+		case 11: break;
+		case 12: break;
+		case 13: break;
+		case 14: break;
+		case 15: break;
+		case 16: break;
+		default: break;
+		}
+		return category;
+		
+	}
 
 	/* Set the window dimensions */
 	public static final int APPLICATION_WIDTH = 800;
@@ -76,6 +102,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 	private int nPlayers;
 	private String[] playerNames;
+	private int[] [] scoreCard;
 	private YahtzeeUI ui;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	private int turns = N_SCORING_CATEGORIES;
