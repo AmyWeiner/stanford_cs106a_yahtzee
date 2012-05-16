@@ -42,7 +42,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private void takeTurn(int player, String name) {
-		ui.printMessage(name + "'s turn. Click \"Roll Dice\" button to roll the dice");
+		ui.printMessage(name + "'s turn! Click \"Roll Dice\" button to roll the dice.");
 		int[] dice = new int[N_DICE];
 		ui.waitForPlayerToClickRoll(player);
 		for (int i = 0; i < N_DICE; i ++) {
@@ -51,13 +51,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		ui.displayDice(dice);
 		reRoll(player, name, dice);
 		reRoll(player, name, dice);
+		ui.printMessage("Select a category for this roll.");
 		int category = ui.waitForPlayerToSelectCategory();
 		//ui.updateScorecard(category, player, score);
 	}
 
 
 	private void reRoll(int player, String name, int[] dice) {
-		ui.printMessage(name + "'s turn. Click \"Roll Dice\" button to roll the dice");
+		ui.printMessage("Select the dice you wish to re-roll and click \"Roll Again\".");
 		ui.waitForPlayerToSelectDice();
 		for (int i = 0; i< N_DICE; i ++) {
 			if (ui.isDieSelected(i)) {
