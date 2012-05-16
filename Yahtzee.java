@@ -35,13 +35,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private void playGame(int[] players) {
 		while ( turns > 0) {
 			for (int i = 0; i < nPlayers; i ++) {
-				takeTurn(players[i]);
+				takeTurn(players[i], playerNames[i]);
 			}
 		}
 		turns --;
 	}
 
-	private void takeTurn(int player) {
+	private void takeTurn(int player, String name) {
+		ui.printMessage(name + "'s turn. Click \"Roll Dice\" button to roll the dice");
 		int[] dice = new int[N_DICE];
 		ui.waitForPlayerToClickRoll(player);
 		for (int i = 0; i < N_DICE; i ++) {
@@ -63,6 +64,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		ui.displayDice(dice);
 		}
 		int category = ui.waitForPlayerToSelectCategory();
+		ui.updateScorecard(category, player, score);
 }
 
 /* Set the window dimensions */
