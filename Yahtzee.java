@@ -49,34 +49,34 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			dice[i] = rgen.nextInt(1, 6);
 		}
 		ui.displayDice(dice);
-		ui.waitForPlayerToSelectDice();
-		for (int i = 0; i< N_DICE; i ++) {
-			if (ui.isDieSelected(i)) {
-				dice[i] = rgen.nextInt(1, 6);
-			}
-		ui.displayDice(dice);
-		}
-		ui.waitForPlayerToSelectDice();
-		for (int i = 0; i< N_DICE; i ++) {
-			if (ui.isDieSelected(i)) {
-				dice[i] = rgen.nextInt(1, 6);
-			}
-		ui.displayDice(dice);
-		}
+		reRoll(player, name, dice);
+		reRoll(player, name, dice);
 		int category = ui.waitForPlayerToSelectCategory();
 		//ui.updateScorecard(category, player, score);
-}
+	}
 
-/* Set the window dimensions */
-public static final int APPLICATION_WIDTH = 800;
-public static final int APPLICATION_HEIGHT = 500;
 
-/* Private instance variables */
+	private void reRoll(int player, String name, int[] dice) {
+		ui.printMessage(name + "'s turn. Click \"Roll Dice\" button to roll the dice");
+		ui.waitForPlayerToSelectDice();
+		for (int i = 0; i< N_DICE; i ++) {
+			if (ui.isDieSelected(i)) {
+				dice[i] = rgen.nextInt(1, 6);
+			}
+			ui.displayDice(dice);
+		}
+	}
 
-private int nPlayers;
-private String[] playerNames;
-private YahtzeeUI ui;
-private RandomGenerator rgen = RandomGenerator.getInstance();
-private int turns = N_SCORING_CATEGORIES;
+	/* Set the window dimensions */
+	public static final int APPLICATION_WIDTH = 800;
+	public static final int APPLICATION_HEIGHT = 500;
+
+	/* Private instance variables */
+
+	private int nPlayers;
+	private String[] playerNames;
+	private YahtzeeUI ui;
+	private RandomGenerator rgen = RandomGenerator.getInstance();
+	private int turns = N_SCORING_CATEGORIES;
 
 }
