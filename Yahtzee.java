@@ -26,7 +26,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		ui = new YahtzeeUI(playerNames);
 		int[] players = new int[nPlayers];
-		scoreCard = new int [N_SCORING_CATEGORIES][nPlayers];
+		scoreCard = new int [N_CATEGORIES][nPlayers];
 		initializeScoreCard();
 		playGame(players);
 	}
@@ -35,12 +35,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 * This method plays a single game of Yahtzee.
 	 */
 	private void playGame(int[] players) {
-		while ( turns > 0) {
-			for (int i = 0; i < nPlayers; i ++) {
-				takeTurn(players[i], playerNames[i]);
+		int turns = N_SCORING_CATEGORIES;
+		for (int i = 0; i < N_SCORING_CATEGORIES; i++) {
+			for (int j = 0; j < nPlayers; j ++) {
+				takeTurn(players[i], playerNames[j]);
 			}
+			turns --;
 		}
-		turns --;
+		
 		if (turns == 0) {
 			for (int i = 0; i < nPlayers; i++) {
 				calculateUpperScore();
@@ -51,10 +53,10 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	/*
-	 * This method initializes the scoreCard with a value of -1 in all .
+	 * This method initializes the scoreCard with a value of -1 for all of the categories, for each player.
 	 */
 	private void initializeScoreCard() {
-		for (int i = 0; i < N_SCORING_CATEGORIES; i ++) {
+		for (int i = 0; i < N_CATEGORIES; i ++) {
 			for ( int j = 0; j < nPlayers; j ++) {
 				scoreCard[i][j] = -1;
 			}
@@ -62,7 +64,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private void takeTurn(int player, String name) {
-		ui.printMessage(name + "'s turn! Click \"Roll Dice\" button to roll the dice.");
+		ui.printMessage(name + "'s turn! Click \"Roll Dice\" button to roll the dice.");				//prompts player to 
 		int[] dice = new int[N_DICE];
 		ui.waitForPlayerToClickRoll(player);
 		for (int i = 0; i < N_DICE; i ++) {
@@ -194,6 +196,4 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private int[] [] scoreCard;
 	private YahtzeeUI ui;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
-	private int turns = N_SCORING_CATEGORIES;
-
 }
