@@ -42,11 +42,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		turns --;
 	}
-	
+
 	private void initializeScoreCard() {
 		for (int i = 0; i < N_CATEGORIES; i ++) {
 			for ( int j = 0; j < nPlayers; j ++) {
-					scoreCard[i][j] = -1;
+				scoreCard[i][j] = -1;
 			}
 		}
 	}
@@ -79,48 +79,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			ui.displayDice(dice);
 		}
 	}
-	
+
 	private int calculateScore(int category, int[] dice) {
 		int total = 0;
 		switch (category) {
-		case 0: 
+		case 0: case 1: case 2: case 3: case 4: case 5: 
 			for (int i = 0; i < N_DICE; i ++) {
-				if (dice[i] == 1) {
-					total += dice[i];
-				}
-			}
-			return total;
-		case 1: 
-			for (int i = 0; i < N_DICE; i ++) {
-				if (dice[i] == 2) {
-					total += dice[i];
-				}
-			}
-			return total;
-		case 2: 
-			for (int i = 0; i < N_DICE; i ++) {
-				if (dice[i] == 3) {
-					total += dice[i];
-				}
-			}
-			return total;
-		case 3: 
-			for (int i = 0; i < N_DICE; i ++) {
-				if (dice[i] == 4) {
-					total += dice[i];
-				}
-			}
-			return total;
-		case 4: 
-			for (int i = 0; i < N_DICE; i ++) {
-				if (dice[i] == 5) {
-					total += dice[i];
-				}
-			}
-			return total;
-		case 5: 
-			for (int i = 0; i < N_DICE; i ++) {
-				if (dice[i] == 1) {
+				if (dice[i] == category + 1) {
 					total += dice[i];
 				}
 			}
@@ -128,13 +93,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		case 8: 
 			for (int i = 0; i < N_DICE; i ++) {
 				total += dice[i];
-		}
-		return total;
+			}
+			return total;
 		case 9: 
 			for (int i = 0; i < N_DICE; i ++) {
 				total += dice[i];
-		}
-		return total;
+			}
+			return total;
 		case 10: 
 			total = 25;
 			return total;
@@ -149,14 +114,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			return total;
 		case 14: 
 			for (int i = 0; i < N_DICE; i ++) {
-					total += dice[i];
+				total += dice[i];
 			}
 			return total;
 		default: break;
 		}
 		return category;
 	}
-	
+
 	private void recordScore(int category, int player, int score) {
 		for (int i = 0; i < N_CATEGORIES; i ++) {
 			for ( int j = 0; j < nPlayers; j ++) {
