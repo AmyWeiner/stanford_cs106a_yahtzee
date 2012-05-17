@@ -63,8 +63,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		reRoll(player, name, dice);
 		ui.printMessage("Select a category for this roll.");
 		int category = ui.waitForPlayerToSelectCategory();
-		int score = calculateScore(category, dice);
-		recordScore(category, player, score);
+		if (isAvailableCategory(category, player)) {
+			int score = calculateScore(category, dice);
+			recordScore(category, player, score);
+		} else {
+			ui.printMessage("You already picked that category. Please choose another category");
+		}
+
 		//ui.updateScorecard(category, player, score);
 	}
 
@@ -78,6 +83,17 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 			ui.displayDice(dice);
 		}
+	}
+
+	private boolean isAvailableCategory(int category, int player) {
+		for (int i = 0; i < N_CATEGORIES; i ++) {
+			for ( int j = 0; j < nPlayers; j ++) {
+				if (i == category && j == player) {
+					return (scoreCard[i][j] == -1); 
+				} 
+			}
+		}
+		return true;
 	}
 
 	private int calculateScore(int category, int[] dice) {
@@ -127,9 +143,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			for ( int j = 0; j < nPlayers; j ++) {
 				if (i == category && j == player) {
 					if (scoreCard[i][j] == -1) {
-					scoreCard[i][j] = score;
-					ui.updateScorecard(category, player, score);
-					}
+						scoreCard[i][j] = score;
+						ui.updateScorecard(category, player, score);
+					} 
 				}
 			}
 		}
