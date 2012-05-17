@@ -71,7 +71,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		recordScore(category, player, score);
 		ui.updateScorecard(category, player, score);
 		int total = calculateTotal(player);
-		displayTotal(total, player);
+		ui.updateScorecard(TOTAL, player, total);
 	}
 
 	private void reRoll(int player, String name, int[] dice) {
@@ -162,22 +162,19 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		return total;
 	}
-	
-	private void displayTotal(int player, int total) {
-		ui.updateScorecard(TOTAL, player, total);
-	}
 
-				/* Set the window dimensions */
-				public static final int APPLICATION_WIDTH = 800;
-				public static final int APPLICATION_HEIGHT = 500;
 
-				/* Private instance variables */
+	/* Set the window dimensions */
+	public static final int APPLICATION_WIDTH = 800;
+	public static final int APPLICATION_HEIGHT = 500;
 
-				private int nPlayers;
-				private String[] playerNames;
-				private int[] [] scoreCard;
-				private YahtzeeUI ui;
-				private RandomGenerator rgen = RandomGenerator.getInstance();
-				private int turns = N_SCORING_CATEGORIES;
+	/* Private instance variables */
 
-			}
+	private int nPlayers;
+	private String[] playerNames;
+	private int[] [] scoreCard;
+	private YahtzeeUI ui;
+	private RandomGenerator rgen = RandomGenerator.getInstance();
+	private int turns = N_SCORING_CATEGORIES;
+
+}
