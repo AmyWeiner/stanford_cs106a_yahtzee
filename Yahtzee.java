@@ -53,8 +53,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		reRoll(player, name, dice);
 		ui.printMessage("Select a category for this roll.");
 		int category = ui.waitForPlayerToSelectCategory();
-		int score = calculateScore(category);
-		//ui.updateScorecard(category, player, score);
+		int score = calculateScore(category, dice);
+		ui.updateScorecard(category, player, score);
 	}
 
 
@@ -69,25 +69,78 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 	}
 	
-	private int calculateScore(int category) {
+	private int calculateScore(int category, int[] dice) {
+		int total = 0;
 		switch (category) {
-		case 0: break;
-		case 1: break;
-		case 2: break;
-		case 3: break;
-		case 4: break;
-		case 5: break;
-		case 6: break;
-		case 7: break;
-		case 8: break;
-		case 9: break;
-		case 10: break;
-		case 11: break;
-		case 12: break;
-		case 13: break;
-		case 14: break;
-		case 15: break;
-		case 16: break;
+		case 0: 
+			for (int i = 0; i < N_DICE; i ++) {
+				if (dice[i] == 1) {
+					total += dice[i];
+				}
+			}
+			return total;
+		case 1: 
+			for (int i = 0; i < N_DICE; i ++) {
+				if (dice[i] == 2) {
+					total += dice[i];
+				}
+			}
+			return total;
+		case 2: 
+			for (int i = 0; i < N_DICE; i ++) {
+				if (dice[i] == 3) {
+					total += dice[i];
+				}
+			}
+			return total;
+		case 3: 
+			for (int i = 0; i < N_DICE; i ++) {
+				if (dice[i] == 4) {
+					total += dice[i];
+				}
+			}
+			return total;
+		case 4: 
+			for (int i = 0; i < N_DICE; i ++) {
+				if (dice[i] == 5) {
+					total += dice[i];
+				}
+			}
+			return total;
+		case 5: 
+			for (int i = 0; i < N_DICE; i ++) {
+				if (dice[i] == 1) {
+					total += dice[i];
+				}
+			}
+			return total;
+		case 8: 
+			for (int i = 0; i < N_DICE; i ++) {
+				total += dice[i];
+		}
+		return total;
+		case 9: 
+			for (int i = 0; i < N_DICE; i ++) {
+				total += dice[i];
+		}
+		return total;
+		case 10: 
+			total = 25;
+			return total;
+		case 11: 
+			total = 30;
+			return total;
+		case 12: 
+			total = 40;
+			return total;
+		case 13: 
+			total = 50;
+			return total;
+		case 14: 
+			for (int i = 0; i < N_DICE; i ++) {
+					total += dice[i];
+			}
+			return total;
 		default: break;
 		}
 		return category;
