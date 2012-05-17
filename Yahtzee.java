@@ -41,6 +41,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 		}
 		turns --;
+		if (turns == 0) {
+			for (int i = 0; i < nPlayers; i++) {
+				calculateUpperScore(players);
+				//calculateLowerScore();
+			}
+			//displayWinner();
+		}
 	}
 
 	private void initializeScoreCard() {
@@ -140,7 +147,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 	private void recordScore(int category, int player, int score) {
 		for (int i = 0; i < N_CATEGORIES; i ++) {
-			for ( int j = 0; j < nPlayers; j ++) {
+			for (int j = 0; j < nPlayers; j ++) {
 				if (i == category && j == player) {
 					if (scoreCard[i][j] == -1) {
 						scoreCard[i][j] = score;
@@ -163,6 +170,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return total;
 	}
 
+	private void calculateUpperScore(int[] players) {
+		int total = 0;
+		for (int i = 0; i < UPPER_SCORE; i ++) {
+			for ( int j = 0; j < nPlayers; j ++) {
+				total += scoreCard[i][j];
+			}
+		}
+	}
 
 	/* Set the window dimensions */
 	public static final int APPLICATION_WIDTH = 800;
