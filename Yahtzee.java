@@ -191,6 +191,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private int[] [] scoreCard;
 	private YahtzeeUI ui;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
-	private int turns = N_SCORING_CATEGORIES;
+	private int turns = 13;
 
 }
