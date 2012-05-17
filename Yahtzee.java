@@ -63,16 +63,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		reRoll(player, name, dice);
 		ui.printMessage("Select a category for this roll.");
 		int category = ui.waitForPlayerToSelectCategory();
-		if (isAvailableCategory(category, player)) {
-			int score = calculateScore(category, dice);
-			recordScore(category, player, score);
-		} else {
-			
-		}
-		ui.printMessage("You already picked that category. Please choose another category");
-		//ui.updateScorecard(category, player, score);
+		while (!isAvailableCategory(category, player)){
+			ui.printMessage("You already picked that category. Please choose another category");
+			category = ui.waitForPlayerToSelectCategory();
+		} 
+		int score = calculateScore(category, dice);
+		recordScore(category, player, score);
 	}
-
 
 	private void reRoll(int player, String name, int[] dice) {
 		ui.printMessage("Select the dice you wish to re-roll and click \"Roll Again\".");
