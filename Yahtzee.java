@@ -175,7 +175,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		for (int i = 0; i < UPPER_SCORE; i ++) {
 			for ( int j = 0; j < nPlayers; j ++) {
 				total += scoreCard[i][j];
-				ui.updateScorecard(UPPER_SCORE, i, total);
+				ui.updateScorecard(UPPER_SCORE, j, total);
 			}
 		}
 	}
@@ -191,6 +191,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private int[] [] scoreCard;
 	private YahtzeeUI ui;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
-	private int turns = 13;
+	private int turns = N_SCORING_CATEGORIES;
 
 }
