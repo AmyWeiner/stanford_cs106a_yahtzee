@@ -138,7 +138,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			total = 40;
 			return total;
 		case 13: 
+			for (int i = 0; i < N_DICE; i ++) {
+				total += dice[i];
+			}
+			if (total % N_DICE == 0) {
 			total = 50;
+			} else {
+				total = 0;
+			}
 			return total;
 		case 14: 
 			for (int i = 0; i < N_DICE; i ++) {
