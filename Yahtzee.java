@@ -27,6 +27,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		ui = new YahtzeeUI(playerNames);
 		int[] players = new int[nPlayers];
 		scoreCard = new int [N_CATEGORIES][nPlayers];
+		initializeScoreCard();
 		playGame(players);
 	}
 
@@ -40,6 +41,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 		}
 		turns --;
+	}
+	
+	private void initializeScoreCard() {
+		for (int i = 0; i < N_CATEGORIES; i ++) {
+			for ( int j = 0; j < nPlayers; j ++) {
+					scoreCard[i][j] = -1;
+			}
+		}
 	}
 
 	private void takeTurn(int player, String name) {
