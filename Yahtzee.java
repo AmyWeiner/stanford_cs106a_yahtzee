@@ -26,6 +26,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		ui = new YahtzeeUI(playerNames);
 		int[] players = new int[nPlayers];
+		scoreCard = new int [N_CATEGORIES][nPlayers];
 		playGame(players);
 	}
 
@@ -54,6 +55,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		ui.printMessage("Select a category for this roll.");
 		int category = ui.waitForPlayerToSelectCategory();
 		int score = calculateScore(category, dice);
+		recordScore(category, player, score);
 		ui.updateScorecard(category, player, score);
 	}
 
@@ -144,7 +146,16 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		default: break;
 		}
 		return category;
-		
+	}
+	
+	private void recordScore(int category, int player, int score) {
+		for (int i = 0; i < N_CATEGORIES; i ++) {
+			for ( int j = 0; j < nPlayers; j ++) {
+				if (i == category && j == player) {
+					scoreCard[i][j] = score;
+				}
+			}
+		}
 	}
 
 	/* Set the window dimensions */
