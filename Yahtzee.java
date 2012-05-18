@@ -120,10 +120,16 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return true;
 	}
 
+	/*
+	 * This method calculates the score earned for each player during each turn of the game. If the
+	 * category chosen by the player is valid for the given dice roll at the end of the turn, the score
+	 * is calculated according to the rules of the Yahtzee game. If the player picks a category that
+	 * is not valid for that particular dice roll, then the player earns a score of zero for that turn.
+	 */
 	private int calculateScore(int category, int[] dice) {
 		int total = 0;
 		switch (category) {
-		case ONES: case TWOS: case THREES: case FOURS: case FIVES: case SIXES: 
+		case ONES: case TWOS: case THREES: case FOURS: case FIVES: case SIXES: 		
 			for (int i = 0; i < N_DICE; i ++) {
 				if (dice[i] == category + 1) {
 					total += dice[i];
@@ -170,19 +176,22 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return category;
 	}
 
+	/*
+	 * This method records the .
+	 */
 	private void recordScore(int category, int player, int score) {
 		for (int i = 0; i < N_CATEGORIES; i ++) {
+			/*
 			for (int j = 0; j < nPlayers; j ++) {
 				if (i == category && j == player) {
+				*/
 					if (scoreCard[category][player] == -1) {
-						scoreCard[i][j] = score;
+						scoreCard[category][player] = score;
 						ui.updateScorecard(category, player, score);
 					} 
 				}
 			}
-		}
-	}
-
+	
 	private int calculateTotal(int player) {
 		int total = 0;
 		for (int i = 0; i < N_CATEGORIES; i ++) {
