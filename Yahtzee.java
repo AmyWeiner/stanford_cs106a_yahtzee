@@ -25,20 +25,19 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			playerNames[i] = dialog.readLine("Enter name for player " + (i + 1));
 		}
 		ui = new YahtzeeUI(playerNames);
-		int[] players = new int[nPlayers];
 		scoreCard = new int [N_CATEGORIES][nPlayers];
 		initializeScoreCard();
-		playGame(players);
+		playGame();
 	}
 
 	/*
 	 * This method plays a single game of Yahtzee.
 	 */
-	private void playGame(int[] players) {
+	private void playGame() {
 		int turns = N_SCORING_CATEGORIES;
 		for (int i = 0; i < N_SCORING_CATEGORIES; i++) {
 			for (int j = 0; j < nPlayers; j ++) {
-				takeTurn(players[j], playerNames[j]);
+				takeTurn(j, playerNames[j]);
 			}
 			turns --;
 		}
@@ -162,7 +161,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		for (int i = 0; i < N_CATEGORIES; i ++) {
 			for (int j = 0; j < nPlayers; j ++) {
 				if (i == category && j == player) {
-					if (scoreCard[i][j] == -1) {
+					if (scoreCard[category][player] == -1) {
 						scoreCard[i][j] = score;
 						ui.updateScorecard(category, player, score);
 					} 
