@@ -203,17 +203,18 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private boolean isNOfAKind(int[] dice, int n) {
-		int ones = countDiceNumber(dice, 1);
-		int twos = countDiceNumber(dice, 2);
-		int threes = countDiceNumber(dice, 3);
-		int fours = countDiceNumber(dice, 4);
-		int fives = countDiceNumber(dice, 5);
-		int sixes = countDiceNumber(dice, 6);
-		return (ones >= n || twos >= n || threes >= n || fours >= n || fives >= n || sixes >= n);
+		int[] numbers = new int[6];
+		for (int i = 0; i < 6; i++) {
+			numbers[i] = countDiceNumber(dice, i+1);
+			if (numbers[i] >= n) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	private boolean isFullHouse(int[] dice) {
-		return (((isNOfAKind(dice, 2) && isNOfAKind(dice, 3)) && ((!isNOfAKind(dice,4) || (!isNOfAKind(dice, 5)))));
+		return isNOfAKind(dice, 2) && isNOfAKind(dice, 3); 
 	}
 
 	private int countDiceNumber(int[] dice, int n) {
