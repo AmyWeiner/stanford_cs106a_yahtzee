@@ -35,20 +35,20 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 */
 	private void playGame() {
 		int turns = N_SCORING_CATEGORIES;
-		for (int i = 0; i < N_SCORING_CATEGORIES; i++) {
+		for (int i = 12; i < N_SCORING_CATEGORIES; i++) {
 			for (int j = 0; j < nPlayers; j ++) {
 				takeTurn(j, playerNames[j]);
 			}
 			turns --;
 		}
 
-		if (turns == 0) {
+		//if (turns == 0) {
 			for (int i = 0; i < nPlayers; i++) {
 				calculateUpperScore(i);
 				calculateLowerScore(i);
 			}
 			displayWinner();
-		}
+		//}
 	}
 
 	/*
@@ -97,7 +97,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private boolean isAvailableCategory(int category, int player) {
-		for (int i = 12; i < N_CATEGORIES; i ++) {
+		for (int i = 0; i < N_CATEGORIES; i ++) {
 			for ( int j = 0; j < nPlayers; j ++) {
 				if (i == category && j == player) {
 					return (scoreCard[i][j] == -1); 
