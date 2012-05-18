@@ -119,17 +119,19 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 			return total;
 		case THREE_OF_A_KIND: 
-			if (isThreeOfAKind(dice)) {
+			if (isNOfAKind(dice, 3)) {
 				total = getDiceTotal(dice);
 				} 
 			return total;
 		case FOUR_OF_A_KIND: 
-			if (isFourOfAKind(dice)) {
+			if (isNOfAKind(dice, 4)) {
 				total = getDiceTotal(dice);
 			} 
 			return total;
 		case FULL_HOUSE: 
-			total = 25;
+			if (isFullHouse(dice)) {
+				total = 25;
+			}
 			return total;
 		case SMALL_STRAIGHT: 
 			total = 30;
@@ -138,7 +140,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			total = 40;
 			return total;
 		case YAHTZEE: 
-			if (isYahtzee(dice)) {
+			if (isNOfAKind(dice, 5)) {
 				total = 50;
 			}
 			return total;
@@ -200,41 +202,25 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 	}
 
-	private boolean isThreeOfAKind(int[] dice) {
+	private boolean isNOfAKind(int[] dice, int n) {
 		int ones = countDiceNumber(dice, 1);
 		int twos = countDiceNumber(dice, 2);
 		int threes = countDiceNumber(dice, 3);
 		int fours = countDiceNumber(dice, 4);
 		int fives = countDiceNumber(dice, 5);
 		int sixes = countDiceNumber(dice, 6);
-		return (ones >= 3 || twos >= 3 || threes >= 3 || fours >= 3 || fives >= 3 || sixes >= 3);
+		return (ones >= n || twos >= n || threes >= n || fours >= n || fives >= n || sixes >= n);
 	}
-
-	private boolean isFourOfAKind(int[] dice) {
-		int ones = countDiceNumber(dice, 1);
-		int twos = countDiceNumber(dice, 2);
-		int threes = countDiceNumber(dice, 3);
-		int fours = countDiceNumber(dice, 4);
-		int fives = countDiceNumber(dice, 5);
-		int sixes = countDiceNumber(dice, 6);
-		return (ones >= 4 || twos >= 4 || threes >= 4 || fours >= 4 || fives >= 4 || sixes >= 4);
-	}
-
-	private boolean isYahtzee(int[] dice) {
-		int ones = countDiceNumber(dice, 1);
-		int twos = countDiceNumber(dice, 2);
-		int threes = countDiceNumber(dice, 3);
-		int fours = countDiceNumber(dice, 4);
-		int fives = countDiceNumber(dice, 5);
-		int sixes = countDiceNumber(dice, 6);
-		return (ones == 5 || twos == 5 || threes == 5 || fours == 5 || fives == 5 || sixes == 5);
+	
+	private boolean isFullHouse(int[] dice) {
+		return (((isNOfAKind(dice, 2) && isNOfAKind(dice, 3)) && ((!isNOfAKind(dice,4) || (!isNOfAKind(dice, 5))));
 	}
 
 	private int countDiceNumber(int[] dice, int n) {
 		int total = 0;
 		for (int i = 0; i < N_DICE; i ++) {
 			if (dice[i] == n) {
-				total += dice[i];
+				total ++;
 			}
 		}
 		return total;
