@@ -121,7 +121,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		case THREE_OF_A_KIND: 
 			if (isNOfAKind(dice, 3)) {
 				total = getDiceTotal(dice);
-				} 
+			} 
 			return total;
 		case FOUR_OF_A_KIND: 
 			if (isNOfAKind(dice, 4)) {
@@ -135,11 +135,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			return total;
 		case SMALL_STRAIGHT:
 			if (isSmallStraight(dice)) {
-			total = 30;
+				total = 30;
 			}
 			return total;
 		case LARGE_STRAIGHT: 
-			total = 40;
+			if(isLargeStraight(dice)) {
+				total = 40;
+			}
 			return total;
 		case YAHTZEE: 
 			if (isNOfAKind(dice, 5)) {
@@ -191,11 +193,23 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		return false;
 	}
-	
+
 	private boolean isFullHouse(int[] dice) {
 		return isNOfAKind(dice, 2) && isNOfAKind(dice, 3); 
 	}
-	
+
+	private boolean isLargeStraight(int[] dice) {
+		int[] numbers = new int[6];
+		for (int i = 0; i < 6; i ++) {
+			numbers[i] = -1;
+		}
+		for (int i = 0; i < N_DICE; i ++) {
+			int x = dice[i];
+			numbers[x-1] = 1;
+		}
+		return isLargeStraightOne(numbers) || isLargeStraightTwo(numbers);
+	}
+
 	private boolean isSmallStraight(int[] dice) {
 		int[] numbers = new int[6];
 		for (int i = 0; i < 6; i ++) {
@@ -205,7 +219,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			int x = dice[i];
 			numbers[x-1] = 1;
 		}
-		return isSmallStraightOne(numbers) || isSmallStraightTwo(numbers) || isSmallStraightThree(numbers);
+		return isSmallStraightOne(numbers) || isSmallStraightTwo(numbers) || isSmallStraightThree(numbers) 
+		|| isLargeStraightOne(numbers) || isLargeStraightTwo(numbers);
 	}
 
 	private int countDiceNumber(int[] dice, int n) {
@@ -225,7 +240,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		} 
 		return total;
 	}
-	
+
 	private void calculateUpperScore() {
 		int total = 0;
 		for (int i = 0; i < UPPER_SCORE; i ++) {
@@ -257,7 +272,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		return true;
 	}
-	
+
 	private boolean isSmallStraightTwo(int[] numbers) {
 		for (int i = 1; i< 5; i++) {
 			if (numbers[i] == -1) {
@@ -266,7 +281,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		return true;
 	}
-	
+
 	private boolean isSmallStraightThree(int[] numbers) {
 		for (int i = 2; i< 6; i++) {
 			if (numbers[i] == -1) {
@@ -275,7 +290,25 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		return true;
 	}
-	
+
+	private boolean isLargeStraightOne(int[] numbers) {
+		for (int i = 0; i< 5; i++) {
+			if (numbers[i] == -1) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean isLargeStraightTwo(int[] numbers) {
+		for (int i = 1; i< 6; i++) {
+			if (numbers[i] == -1) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/* Set the window dimensions */
 	public static final int APPLICATION_WIDTH = 800;
 	public static final int APPLICATION_HEIGHT = 500;
