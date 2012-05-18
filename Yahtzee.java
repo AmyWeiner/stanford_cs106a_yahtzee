@@ -44,6 +44,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		for (int i = 0; i < nPlayers; i++) {
 			calculateUpperScore(i);
 			calculateLowerScore(i);
+			recordFinalScore(i);
 		}
 		displayWinner();
 	}
@@ -80,7 +81,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		ui.updateScorecard(category, player, score);
 		int total = calculateTotal(player);
 		ui.updateScorecard(TOTAL, player, total);
-		scoreCard[TOTAL][player] = total;
+		//scoreCard[TOTAL][player] = total;
 	}
 
 	private void reRoll(int player, String name, int[] dice) {
@@ -236,25 +237,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return total;
 	}
 
-	private void calculateUpperScore(int player) {
-		int total = 0;
-		for (int i = 0; i < UPPER_SCORE; i ++) {
-			total += scoreCard[i][player];
-			if (total >= 63) {
-				total += 35;
-			}
-			ui.updateScorecard(UPPER_SCORE, player, total);
-		}
-	}
-
-	private void calculateLowerScore(int player) {
-		int total = 0;
-		for (int i = THREE_OF_A_KIND; i < LOWER_SCORE; i ++) {
-			total += scoreCard[i][player];
-			ui.updateScorecard(LOWER_SCORE, player, total);
-		}
-	}
-
 	private boolean isSmallStraightOne(int[] numbers) {
 		for (int i = 0; i< 4; i++) {
 			if (numbers[i] == -1) {
@@ -298,6 +280,29 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 		}
 		return true;
+	}
+	
+	private void calculateUpperScore(int player) {
+		int total = 0;
+		for (int i = 0; i < UPPER_SCORE; i ++) {
+			total += scoreCard[i][player];
+			if (total >= 63) {
+				total += 35;
+			}
+			ui.updateScorecard(UPPER_SCORE, player, total);
+		}
+	}
+
+	private void calculateLowerScore(int player) {
+		int total = 0;
+		for (int i = THREE_OF_A_KIND; i < LOWER_SCORE; i ++) {
+			total += scoreCard[i][player];
+			ui.updateScorecard(LOWER_SCORE, player, total);
+		}
+	}
+	
+	private void recordFinalScore(int player) {
+		scoreCard[TOTAL][player] = scoreCard[UPPER_SCORE][player] + scoreCard[LOWER_SCORE][player]; 
 	}
 
 	private void displayWinner() {
