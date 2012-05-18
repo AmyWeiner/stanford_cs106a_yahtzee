@@ -49,7 +49,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	/*
-	 * This method initializes the scoreCard with a value of -1 for all of the categories, for each player.
+	 * This method initializes the score card with a value of -1 for all of the categories, for each player.
+	 * During the course of the game, the score card is filled in with point values, and the -1 values are 
+	 * replaced accordingly.
 	 */
 	private void initializeScoreCard() {
 		for (int i = 0; i < N_CATEGORIES; i ++) {
@@ -59,8 +61,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 	}
 
+	/*
+	 * This method allows the player to take a single turn, alternating between players in the case of a multiplayer game.
+	 */
 	private void takeTurn(int player, String name) {
-		ui.printMessage(name + "'s turn! Click \"Roll Dice\" button to roll the dice.");				//prompts player to 
+		ui.printMessage(name + "'s turn! Click \"Roll Dice\" button to roll the dice.");	//prompts player to roll dice
 		int[] dice = new int[N_DICE];
 		ui.waitForPlayerToClickRoll(player);
 		for (int i = 0; i < N_DICE; i ++) {
@@ -69,10 +74,10 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		ui.displayDice(dice);
 		reRoll(player, dice);
 		reRoll(player, dice);
-		ui.printMessage("Select a category for this roll.");
+		ui.printMessage("Select a category for this roll.");								//prompts player to select scoring category
 		int category = ui.waitForPlayerToSelectCategory();
 		while (!isAvailableCategory(category, player)){
-			ui.printMessage("You already picked that category. Please choose another category");
+			ui.printMessage("You already picked that category. Please choose another category");  //notifies player category already chosen
 			category = ui.waitForPlayerToSelectCategory();
 		} 
 		int score = calculateScore(category, dice);
@@ -83,8 +88,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		//scoreCard[TOTAL][player] = total;
 	}
 
+	/*
+	 * This method allows the player to take reroll the dice.
+	 */
 	private void reRoll(int player, int[] dice) {
-		ui.printMessage("Select the dice you wish to re-roll and click \"Roll Again\".");
+		ui.printMessage("Select the dice you wish to re-roll and click \"Roll Again\".");  //prompts player to roll again
 		ui.waitForPlayerToSelectDice();
 		for (int i = 0; i< N_DICE; i ++) {
 			if (ui.isDieSelected(i)) {
@@ -94,6 +102,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		ui.displayDice(dice);
 	}
 
+	/*
+	 * This method determines whether or not the category selected by the payer is an available
+	 * category by checking whether or not its corresponding grid cell on the score card contains
+	 * the value -1. If so, a category is still valid. If not, that category is no longer valid, since
+	 * it now contains a points value, indicating that the player has already chosen this particular
+	 * category on a previous turn.
+	 */
 	private boolean isAvailableCategory(int category, int player) {
 		for (int i = 0; i < N_CATEGORIES; i ++) {
 			for ( int j = 0; j < nPlayers; j ++) {
