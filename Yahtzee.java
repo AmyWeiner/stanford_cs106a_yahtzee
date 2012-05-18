@@ -97,7 +97,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private boolean isAvailableCategory(int category, int player) {
-		for (int i = 0; i < N_CATEGORIES; i ++) {
+		for (int i = 12; i < N_CATEGORIES; i ++) {
 			for ( int j = 0; j < nPlayers; j ++) {
 				if (i == category && j == player) {
 					return (scoreCard[i][j] == -1); 
@@ -304,13 +304,15 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	
 	private void displayWinner() {
 		int highest = 0;
+		String winnerName = "";
 		for (int i = 0; i < nPlayers; i ++) {
 			int x = scoreCard[TOTAL][i];
 			if (x > highest) {
 				highest = x;
+				winnerName = playerNames[i];
 			}
 		}
-		ui.printMessage("Congratulations, Julie, you're the winner with a total score of " + highest +"!");
+		ui.printMessage("Congratulations, " + winnerName + " you're the winner with a total score of " + highest +"!");
 	}
 
 	/* Set the window dimensions */
