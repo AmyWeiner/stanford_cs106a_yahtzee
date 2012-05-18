@@ -44,7 +44,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		for (int i = 0; i < nPlayers; i++) {
 			calculateUpperScore(i);
 			calculateLowerScore(i);
-			recordFinalScore(i);
 		}
 		displayWinner();
 	}
@@ -203,7 +202,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			int x = dice[i];
 			numbers[x-1] = 1;
 		}
-		return isLargeStraightOne(numbers) || isLargeStraightTwo(numbers);
+		return ((isLargeStraight(numbers, 0, 5)) || (isLargeStraight(numbers, 1, 6)));
 	}
 
 	private boolean isSmallStraight(int[] dice) {
@@ -215,8 +214,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			int x = dice[i];
 			numbers[x-1] = 1;
 		}
-		return isSmallStraightOne(numbers) || isSmallStraightTwo(numbers) || isSmallStraightThree(numbers) 
-		|| isLargeStraightOne(numbers) || isLargeStraightTwo(numbers);
+		return ((isSmallStraight(numbers, 0, 4)) || (isSmallStraight(numbers, 1, 5)) || (isSmallStraight(numbers, 2, 6)) 
+		|| (isLargeStraight(numbers, 0, 5)) || (isLargeStraight(numbers, 1, 6)));
 	}
 
 	private int countDiceNumber(int[] dice, int n) {
@@ -237,8 +236,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return total;
 	}
 
-	private boolean isSmallStraightOne(int[] numbers) {
-		for (int i = 0; i< 4; i++) {
+	private boolean isSmallStraight(int[] numbers, int start, int finish) {
+		for (int i = start; i< finish; i++) {
 			if (numbers[i] == -1) {
 				return false;
 			}
@@ -246,35 +245,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return true;
 	}
 
-	private boolean isSmallStraightTwo(int[] numbers) {
-		for (int i = 1; i< 5; i++) {
-			if (numbers[i] == -1) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean isSmallStraightThree(int[] numbers) {
-		for (int i = 2; i< 6; i++) {
-			if (numbers[i] == -1) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean isLargeStraightOne(int[] numbers) {
-		for (int i = 0; i< 5; i++) {
-			if (numbers[i] == -1) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean isLargeStraightTwo(int[] numbers) {
-		for (int i = 1; i< 6; i++) {
+	private boolean isLargeStraight(int[] numbers, int start, int finish) {
+		for (int i = start; i< finish; i++) {
 			if (numbers[i] == -1) {
 				return false;
 			}
@@ -301,10 +273,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 	}
 	
-	private void recordFinalScore(int player) {
-		scoreCard[TOTAL][player] = scoreCard[UPPER_SCORE][player] + scoreCard[LOWER_SCORE][player]; 
-	}
-
 	private void displayWinner() {
 		int highest = 0;
 		String winnerName = "";
