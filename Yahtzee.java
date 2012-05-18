@@ -80,7 +80,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		ui.updateScorecard(category, player, score);
 		int total = calculateTotal(player);
 		ui.updateScorecard(TOTAL, player, total);
-		scoreCard[TOTAL][player] = total;
+		//scoreCard[TOTAL][player] = total;
 	}
 
 	private void reRoll(int player, String name, int[] dice) {
