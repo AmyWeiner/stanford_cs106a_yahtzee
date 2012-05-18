@@ -111,35 +111,35 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private int calculateScore(int category, int[] dice) {
 		int total = 0;
 		switch (category) {
-		case 0: case 1: case 2: case 3: case 4: case 5: 
+		case ONES: case TWOS: case THREES: case FOURS: case FIVES: case SIXES: 
 			for (int i = 0; i < N_DICE; i ++) {
 				if (dice[i] == category + 1) {
 					total += dice[i];
 				}
 			}
 			return total;
-		case 8: 
+		case THREE_OF_A_KIND: 
 			if (isThreeOfAKind(dice)) {
 				for (int i = 0; i < N_DICE; i ++) {
 					total += dice[i];
 				}
 			}
 			return total;
-		case 9: 
+		case FOUR_OF_A_KIND: 
 			for (int i = 0; i < N_DICE; i ++) {
 				total += dice[i];
 			}
 			return total;
-		case 10: 
+		case FULL_HOUSE: 
 			total = 25;
 			return total;
-		case 11: 
+		case SMALL_STRAIGHT: 
 			total = 30;
 			return total;
-		case 12: 
+		case LARGE_STRAIGHT: 
 			total = 40;
 			return total;
-		case 13: 
+		case YAHTZEE: 
 			for (int i = 0; i < N_DICE; i ++) {
 				total += dice[i];
 			}
@@ -149,7 +149,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				total = 0;
 			}
 			return total;
-		case 14: 
+		case CHANCE: 
 			for (int i = 0; i < N_DICE; i ++) {
 				total += dice[i];
 			}
@@ -208,69 +208,19 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private boolean isThreeOfAKind(int[] dice) {
-		int ones = countOnes(dice);
-		int twos = countTwos(dice);
-		int threes = countThrees(dice);
-		int fours = countFours(dice);
-		int fives = countFives(dice);
-		int sixes = countSixes(dice);
+		int ones = countDiceNumber(dice, 1);
+		int twos = countDiceNumber(dice, 2);
+		int threes = countDiceNumber(dice, 3);
+		int fours = countDiceNumber(dice, 4);
+		int fives = countDiceNumber(dice, 5);
+		int sixes = countDiceNumber(dice, 6);
 		return (ones >= 3 || twos >= 3 || threes >= 3 || fours >= 3 || fives >= 3 || sixes >= 3);
 	}
 
-	private int countOnes(int[] dice) {
+	private int countDiceNumber(int[] dice, int n) {
 		int total = 0;
 		for (int i = 0; i < N_DICE; i ++) {
-			if (dice[i] == 1) {
-				total += dice[i];
-			}
-		}
-		return total;
-	}
-
-	private int countTwos(int[] dice) {
-		int total = 0;
-		for (int i = 0; i < N_DICE; i ++) {
-			if (dice[i] == 1) {
-				total += dice[i];
-			}
-		}
-		return total;
-	}
-
-	private int countThrees(int[] dice) {
-		int total = 0;
-		for (int i = 0; i < N_DICE; i ++) {
-			if (dice[i] == 1) {
-				total += dice[i];
-			}
-		}
-		return total;
-	}
-
-	private int countFours(int[] dice) {
-		int total = 0;
-		for (int i = 0; i < N_DICE; i ++) {
-			if (dice[i] == 1) {
-				total += dice[i];
-			}
-		}
-		return total;
-	}
-
-	private int countFives(int[] dice) {
-		int total = 0;
-		for (int i = 0; i < N_DICE; i ++) {
-			if (dice[i] == 1) {
-				total += dice[i];
-			}
-		}
-		return total;
-	}
-
-	private int countSixes(int[] dice) {
-		int total = 0;
-		for (int i = 0; i < N_DICE; i ++) {
-			if (dice[i] == 1) {
+			if (dice[i] == n) {
 				total += dice[i];
 			}
 		}
