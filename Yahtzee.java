@@ -133,8 +133,10 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				total = 25;
 			}
 			return total;
-		case SMALL_STRAIGHT: 
+		case SMALL_STRAIGHT:
+			if (isSmallStraight(dice)) {
 			total = 30;
+			}
 			return total;
 		case LARGE_STRAIGHT: 
 			total = 40;
@@ -179,6 +181,51 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return total;
 	}
 
+	private boolean isNOfAKind(int[] dice, int n) {
+		int[] numbers = new int[6];
+		for (int i = 0; i < 6; i++) {
+			numbers[i] = countDiceNumber(dice, i+1);
+			if (numbers[i] >= n) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isFullHouse(int[] dice) {
+		return isNOfAKind(dice, 2) && isNOfAKind(dice, 3); 
+	}
+	
+	private boolean isSmallStraight(int[] dice) {
+		int[] numbers = new int[6];
+		for (int i = 0; i < 6; i ++) {
+			numbers[i] = -1;
+		}
+		for (int i = 0; i < N_DICE; i ++) {
+			int x = dice[i];
+			numbers[x-1] = 1;
+		}
+		return isSmallStraightOne(numbers) || isSmallStraightTwo(numbers) || isSmallStraightThree(numbers);
+	}
+
+	private int countDiceNumber(int[] dice, int n) {
+		int total = 0;
+		for (int i = 0; i < N_DICE; i ++) {
+			if (dice[i] == n) {
+				total ++;
+			}
+		}
+		return total;
+	}
+
+	private int getDiceTotal(int[] dice) {
+		int total = 0;
+		for (int i = 0; i < N_DICE; i ++) {
+			total += dice[i];
+		} 
+		return total;
+	}
+	
 	private void calculateUpperScore() {
 		int total = 0;
 		for (int i = 0; i < UPPER_SCORE; i ++) {
@@ -202,39 +249,33 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 	}
 
-	private boolean isNOfAKind(int[] dice, int n) {
-		int[] numbers = new int[6];
-		for (int i = 0; i < 6; i++) {
-			numbers[i] = countDiceNumber(dice, i+1);
-			if (numbers[i] >= n) {
-				return true;
+	private boolean isSmallStraightOne(int[] numbers) {
+		for (int i = 0; i< 4; i++) {
+			if (numbers[i] == -1) {
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 	
-	private boolean isFullHouse(int[] dice) {
-		return isNOfAKind(dice, 2) && isNOfAKind(dice, 3); 
-	}
-
-	private int countDiceNumber(int[] dice, int n) {
-		int total = 0;
-		for (int i = 0; i < N_DICE; i ++) {
-			if (dice[i] == n) {
-				total ++;
+	private boolean isSmallStraightTwo(int[] numbers) {
+		for (int i = 1; i< 5; i++) {
+			if (numbers[i] == -1) {
+				return false;
 			}
 		}
-		return total;
+		return true;
 	}
-
-	private int getDiceTotal(int[] dice) {
-		int total = 0;
-		for (int i = 0; i < N_DICE; i ++) {
-			total += dice[i];
-		} 
-		return total;
+	
+	private boolean isSmallStraightThree(int[] numbers) {
+		for (int i = 2; i< 6; i++) {
+			if (numbers[i] == -1) {
+				return false;
+			}
+		}
+		return true;
 	}
-
+	
 	/* Set the window dimensions */
 	public static final int APPLICATION_WIDTH = 800;
 	public static final int APPLICATION_HEIGHT = 500;
