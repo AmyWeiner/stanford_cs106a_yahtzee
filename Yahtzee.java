@@ -213,7 +213,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 	
 	private boolean isFullHouse(int[] dice) {
-		return (((isNOfAKind(dice, 2) && isNOfAKind(dice, 3)) && ((!isNOfAKind(dice,4) || (!isNOfAKind(dice, 5)));
+		return (((isNOfAKind(dice, 2) && isNOfAKind(dice, 3)) && ((!isNOfAKind(dice,4) || (!isNOfAKind(dice, 5)))));
 	}
 
 	private int countDiceNumber(int[] dice, int n) {
