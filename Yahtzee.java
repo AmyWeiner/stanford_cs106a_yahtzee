@@ -173,10 +173,10 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private int calculateTotal(int player) {
 		int total = 0;
 		for (int i = 0; i < N_CATEGORIES; i ++) {
-			for ( int j = 0; j < nPlayers; j ++) {
-				if (scoreCard[i][j] != -1) {
-					total += scoreCard[i][j];
-				}
+			//for ( int j = 0; j < nPlayers; j ++) {
+				if (scoreCard[i][player] != -1) {
+					total += scoreCard[i][player];
+				//}
 			}
 		}
 		return total;
