@@ -44,8 +44,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 		if (turns == 0) {
 			for (int i = 0; i < nPlayers; i++) {
-				calculateUpperScore();
-				calculateLowerScore();
+				calculateUpperScore(i);
+				calculateLowerScore(i);
 			}
 			//displayWinner();
 		}
@@ -238,26 +238,22 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return total;
 	}
 
-	private void calculateUpperScore() {
+	private void calculateUpperScore(int player) {
 		int total = 0;
 		for (int i = 0; i < UPPER_SCORE; i ++) {
-			for ( int j = 0; j < nPlayers; j ++) {
-				total += scoreCard[i][j];
-				ui.updateScorecard(UPPER_SCORE, j, total);
-			}
-		}
-	}
-
-	private void calculateLowerScore() {
-		int total = 0;
-		for (int i = THREE_OF_A_KIND; i < LOWER_SCORE; i ++) {
-			for ( int j = 0; j < nPlayers; j ++) {
-				total += scoreCard[i][j];
+				total += scoreCard[i][player];
 				if (total >= 63) {
 					total += 35;
 				}
-				ui.updateScorecard(LOWER_SCORE, j, total);
-			}
+				ui.updateScorecard(UPPER_SCORE, player, total);
+		}
+	}
+
+	private void calculateLowerScore(int player) {
+		int total = 0;
+		for (int i = THREE_OF_A_KIND; i < LOWER_SCORE; i ++) {
+				total += scoreCard[i][player];
+				ui.updateScorecard(LOWER_SCORE, player, total);
 		}
 	}
 
