@@ -67,8 +67,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			dice[i] = rgen.nextInt(1, 6);
 		}
 		ui.displayDice(dice);
-		reRoll(player, name, dice);
-		reRoll(player, name, dice);
+		reRoll(player, dice);
+		reRoll(player, dice);
 		ui.printMessage("Select a category for this roll.");
 		int category = ui.waitForPlayerToSelectCategory();
 		while (!isAvailableCategory(category, player)){
@@ -83,11 +83,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		//scoreCard[TOTAL][player] = total;
 	}
 
-	private void reRoll(int player, String name, int[] dice) {
+	private void reRoll(int player, int[] dice) {
 		ui.printMessage("Select the dice you wish to re-roll and click \"Roll Again\".");
 		ui.waitForPlayerToSelectDice();
 		for (int i = 0; i< N_DICE; i ++) {
-			if (ui.isDieSelected(i)) {
+			if (ui.isDieSelected(i) == true) {
 				dice[i] = rgen.nextInt(1, 6);
 			}
 			ui.displayDice(dice);
