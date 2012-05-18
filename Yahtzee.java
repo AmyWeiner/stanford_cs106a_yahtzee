@@ -88,11 +88,10 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		ui.waitForPlayerToSelectDice();
 		for (int i = 0; i< N_DICE; i ++) {
 			if (ui.isDieSelected(i)) {
-				int roll = rgen.nextInt(1, 6);
-				dice[i] = roll;
+				dice[i] = rgen.nextInt(1, 6);
 			}
-			ui.displayDice(dice);
 		}
+		ui.displayDice(dice);
 	}
 
 	private boolean isAvailableCategory(int category, int player) {
