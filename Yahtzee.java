@@ -126,8 +126,10 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 			return total;
 		case FOUR_OF_A_KIND: 
-			for (int i = 0; i < N_DICE; i ++) {
-				total += dice[i];
+			if (isFourOfAKind(dice)) {
+				for (int i = 0; i < N_DICE; i ++) {
+					total += dice[i];
+				}
 			}
 			return total;
 		case FULL_HOUSE: 
@@ -140,14 +142,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			total = 40;
 			return total;
 		case YAHTZEE: 
-			for (int i = 0; i < N_DICE; i ++) {
-				total += dice[i];
-			}
-			if (total % N_DICE == 0) {
+			if (isYahtzee(dice)) {
 				total = 50;
-			} else {
-				total = 0;
-			}
+				}
 			return total;
 		case CHANCE: 
 			for (int i = 0; i < N_DICE; i ++) {
@@ -217,6 +214,26 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return (ones >= 3 || twos >= 3 || threes >= 3 || fours >= 3 || fives >= 3 || sixes >= 3);
 	}
 
+	private boolean isFourOfAKind(int[] dice) {
+		int ones = countDiceNumber(dice, 1);
+		int twos = countDiceNumber(dice, 2);
+		int threes = countDiceNumber(dice, 3);
+		int fours = countDiceNumber(dice, 4);
+		int fives = countDiceNumber(dice, 5);
+		int sixes = countDiceNumber(dice, 6);
+		return (ones >= 4 || twos >= 4 || threes >= 4 || fours >= 4 || fives >= 4 || sixes >= 4);
+	}
+	
+	private boolean isYahtzee(int[] dice) {
+		int ones = countDiceNumber(dice, 1);
+		int twos = countDiceNumber(dice, 2);
+		int threes = countDiceNumber(dice, 3);
+		int fours = countDiceNumber(dice, 4);
+		int fives = countDiceNumber(dice, 5);
+		int sixes = countDiceNumber(dice, 6);
+		return (ones == 5 || twos == 5 || threes == 5 || fours == 5 || fives == 5 || sixes == 5);
+	}
+	
 	private int countDiceNumber(int[] dice, int n) {
 		int total = 0;
 		for (int i = 0; i < N_DICE; i ++) {
