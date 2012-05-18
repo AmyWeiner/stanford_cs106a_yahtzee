@@ -122,7 +122,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			if (isThreeOfAKind(dice)) {
 				for (int i = 0; i < N_DICE; i ++) {
 					total += dice[i];
-				}
+				} 
 			}
 			return total;
 		case FOUR_OF_A_KIND: 
@@ -130,6 +130,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				for (int i = 0; i < N_DICE; i ++) {
 					total += dice[i];
 				}
+			} else {
+				total = 0;
 			}
 			return total;
 		case FULL_HOUSE: 
