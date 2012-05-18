@@ -47,7 +47,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				calculateUpperScore(i);
 				calculateLowerScore(i);
 			}
-			//displayWinner();
+			displayWinner();
 		}
 	}
 
@@ -301,6 +301,17 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		return true;
 	}
+	
+	private void displayWinner() {
+		int highest = 0;
+		for (int i = 0; i < nPlayers; i ++) {
+			int x = scoreCard[TOTAL][i];
+			if (x > highest) {
+				highest = x;
+			}
+		}
+		ui.printMessage("Congratulations, Julie, you're the winner with a total score of " + highest +"!");
+	}
 
 	/* Set the window dimensions */
 	public static final int APPLICATION_WIDTH = 800;
@@ -310,7 +321,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 	private int nPlayers;
 	private String[] playerNames;
-	private int[] [] scoreCard;
+	private int[][] scoreCard;
 	private YahtzeeUI ui;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 }
