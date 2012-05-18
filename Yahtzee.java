@@ -82,10 +82,10 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		} 
 		int score = calculateScore(category, dice);
 		recordScore(category, player, score);
-		ui.updateScorecard(category, player, score);
 		int total = calculateTotal(player);
+		scoreCard[TOTAL][player] = total;
+		ui.updateScorecard(category, player, score);
 		ui.updateScorecard(TOTAL, player, total);
-		//scoreCard[TOTAL][player] = total;
 	}
 
 	/*
@@ -181,10 +181,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 */
 	private void recordScore(int category, int player, int score) {
 		for (int i = 0; i < N_CATEGORIES; i ++) {
-			/*
-			for (int j = 0; j < nPlayers; j ++) {
-				if (i == category && j == player) {
-				*/
 					if (scoreCard[category][player] == -1) {
 						scoreCard[category][player] = score;
 						ui.updateScorecard(category, player, score);
