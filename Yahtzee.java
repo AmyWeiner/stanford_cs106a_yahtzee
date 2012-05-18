@@ -87,8 +87,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		ui.printMessage("Select the dice you wish to re-roll and click \"Roll Again\".");
 		ui.waitForPlayerToSelectDice();
 		for (int i = 0; i< N_DICE; i ++) {
-			if (ui.isDieSelected(i) == true) {
-				dice[i] = rgen.nextInt(1, 6);
+			if (ui.isDieSelected(i)) {
+				int roll = rgen.nextInt(1, 6);
+				dice[i] = roll;
 			}
 			ui.displayDice(dice);
 		}
