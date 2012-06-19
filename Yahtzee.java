@@ -229,7 +229,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 * both of the possible combinations for a large straight. 
 	 */
 	private boolean isLargeStraight(int[] dice) {
-		int[] numbers = new int[6];
+		boolean[] numbers = new boolean[6];
 		markDieNumbers(dice);
 		return ((isLargeStraight(numbers, 0, 5)) || (isLargeStraight(numbers, 1, 6)));
 	}
@@ -240,13 +240,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 * initialized array is changed from -1 to one. 
 	 */
 	private void markDieNumbers(int[] dice) {
-		int[] numbers = new int[6];
+		boolean[] numbers = new boolean[6];
 		for (int i = 0; i < 6; i ++) {
-			numbers[i] = -1;
+			numbers[i] = false;
 		}
 		for (int i = 0; i < N_DICE; i ++) {
 			int x = dice[i];
-			numbers[x-1] = 1;
+			numbers[x-1] = true;
 		}
 	}
 
@@ -256,7 +256,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 * a large straight. 
 	 */
 	private boolean isSmallStraight(int[] dice) {
-		int[] numbers = new int[6];
+		boolean[] numbers = new boolean[6];
 		markDieNumbers(dice);
 		return ((isSmallStraight(numbers, 0, 4)) || (isSmallStraight(numbers, 1, 5)) || (isSmallStraight(numbers, 2, 6)) 
 				|| (isLargeStraight(numbers, 0, 5)) || (isLargeStraight(numbers, 1, 6)));
@@ -289,9 +289,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	/*
 	 * This method determines whether or not a given dice roll contains four consecutive values. 
 	 */
-	private boolean isSmallStraight(int[] numbers, int start, int finish) {
+	private boolean isSmallStraight(boolean[] numbers, int start, int finish) {
 		for (int i = start; i< finish; i++) {
-			if (numbers[i] == -1) {
+			if (numbers[i] == false) {
 				return false;
 			}
 		}
@@ -301,9 +301,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	/*
 	 * This method determines whether or not a given dice roll contains four consecutive values. 
 	 */
-	private boolean isLargeStraight(int[] numbers, int start, int finish) {
+	private boolean isLargeStraight(boolean[] numbers, int start, int finish) {
 		for (int i = start; i< finish; i++) {
-			if (numbers[i] == -1) {
+			if (numbers[i] == false) {
 				return false;
 			}
 		}
