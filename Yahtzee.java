@@ -35,12 +35,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 */
 	private void playGame() {
 		int turns = N_SCORING_CATEGORIES;
-		//for (int i = 0; i < N_SCORING_CATEGORIES; i++) {
+		while (turns > 0) {
 			for (int j = 0; j < nPlayers; j ++) {
 				takeTurn(j, playerNames[j]);
 			}
 			turns --;
-		//}
+		}
 		for (int i = 0; i < nPlayers; i++) {
 			calculateUpperScore(i);
 			calculateLowerScore(i);
@@ -180,11 +180,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 * This method records the score on the game score card for the given category for that turn.
 	 */
 	private void recordScore(int category, int player, int score) {
-			if (scoreCard[category][player] == -1) {
-				scoreCard[category][player] = score;
-				ui.updateScorecard(category, player, score);
-			} 
-		}
+		if (scoreCard[category][player] == -1) {
+			scoreCard[category][player] = score;
+			ui.updateScorecard(category, player, score);
+		} 
+	}
 
 	/*
 	 * This method calculates the running game total.
@@ -221,7 +221,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private boolean isFullHouse(int[] dice) {
 		return isNOfAKind(dice, 2) && isNOfAKind(dice, 3); 
 	}
-	
+
 	/*
 	 * This method determines whether or not a given dice roll contains a small straight by checking for
 	 * each of the three possible combinations of small straights, as well both of the combinations for
@@ -256,7 +256,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		return numbers;
 	}
-	
+
 	/*
 	 * This method determines whether or not a given dice roll contains a straight. 
 	 */
