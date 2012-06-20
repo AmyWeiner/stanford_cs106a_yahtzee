@@ -34,7 +34,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 * This method plays a single game of Yahtzee.
 	 */
 	private void playGame() {
-		int turns = 2;
+		int turns = N_SCORING_CATEGORIES;
 		while (turns > 0) {
 			for (int j = 0; j < nPlayers; j ++) {
 				takeTurn(j, playerNames[j]);
@@ -302,9 +302,16 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			total += scoreCard[i][player];
 			if (total >= 63) {
 				total += 35;
-			}
+				scoreCard[UPPER_BONUS][player] = 35;
+				ui.updateScorecard(UPPER_BONUS, player, 35);
+				scoreCard[UPPER_SCORE][player] = total;
+				ui.updateScorecard(UPPER_SCORE, player, total);
+			} else {
+			scoreCard[UPPER_BONUS][player] = 0;
+			ui.updateScorecard(UPPER_BONUS, player, 0);
 			scoreCard[UPPER_SCORE][player] = total;
 			ui.updateScorecard(UPPER_SCORE, player, total);
+			}
 		}
 	}
 
