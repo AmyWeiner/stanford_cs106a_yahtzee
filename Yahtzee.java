@@ -223,33 +223,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private boolean isFullHouse(int[] dice) {
 		return isNOfAKind(dice, 2) && isNOfAKind(dice, 3); 
 	}
-
-	/*
-	 * This method determines whether or not a given dice roll contains a large straight by checking for
-	 * both of the possible combinations for a large straight. 
-	 */
-	private boolean isLargeStraight(int[] dice) {
-		boolean[] numbers = new boolean[6];
-		markDieNumbers(dice);
-		return ((isLargeStraight(numbers, 0, 5)) || (isLargeStraight(numbers, 1, 6)));
-	}
-
-	/*
-	 * This method creates an array of six elements, one for each possible die value, and initializes each element in
-	 * the array to -1. As each die value is checked for the given roll, that value of the corresponding index -1 of the
-	 * initialized array is changed from -1 to one. 
-	 */
-	private void markDieNumbers(int[] dice) {
-		boolean[] numbers = new boolean[6];
-		for (int i = 0; i < 6; i ++) {
-			numbers[i] = false;
-		}
-		for (int i = 0; i < N_DICE; i ++) {
-			int x = dice[i];
-			numbers[x-1] = true;
-		}
-	}
-
+	
 	/*
 	 * This method determines whether or not a given dice roll contains a small straight by checking for
 	 * each of the three possible combinations of small straights, as well both of the combinations for
@@ -257,9 +231,44 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 */
 	private boolean isSmallStraight(int[] dice) {
 		boolean[] numbers = new boolean[6];
-		markDieNumbers(dice);
-		return ((isSmallStraight(numbers, 0, 4)) || (isSmallStraight(numbers, 1, 5)) || (isSmallStraight(numbers, 2, 6)) 
-				|| (isLargeStraight(numbers, 0, 5)) || (isLargeStraight(numbers, 1, 6)));
+		numbers = markDieNumbers(dice, numbers);
+		return ((isStraight(numbers, 0, 4)) || (isStraight(numbers, 1, 5)) || (isStraight(numbers, 2, 6)) 
+				|| (isStraight(numbers, 0, 5)) || (isStraight(numbers, 1, 6)));
+	}
+
+	/*
+	 * This method determines whether or not a given dice roll contains a large straight by checking for
+	 * both of the possible combinations for a large straight. 
+	 */
+	private boolean isLargeStraight(int[] dice) {
+		boolean[] numbers = new boolean[6];
+		numbers = markDieNumbers(dice, numbers);
+		return ((isStraight(numbers, 0, 5)) || (isStraight(numbers, 1, 6)));
+	}
+
+	/*
+	 * This method creates an array of six elements, one for each possible die value, and initializes each element in
+	 * the array to false. As each die value is checked for the given roll, that value of the corresponding index false of the
+	 * initialized array is changed from false to true. 
+	 */
+	private boolean[] markDieNumbers(int[] dice, boolean[] numbers) {
+		for (int i = 0; i < N_DICE; i ++) {
+			int x = dice[i];
+			numbers[x-1] = true;
+		}
+		return numbers;
+	}
+	
+	/*
+	 * This method determines whether or not a given dice roll contains a straight. 
+	 */
+	private boolean isStraight(boolean[] numbers, int start, int finish) {
+		for (int i = start; i< finish; i++) {
+			if (numbers[i] == false) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/*
@@ -284,30 +293,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			total += dice[i];
 		} 
 		return total;
-	}
-
-	/*
-	 * This method determines whether or not a given dice roll contains four consecutive values. 
-	 */
-	private boolean isSmallStraight(boolean[] numbers, int start, int finish) {
-		for (int i = start; i< finish; i++) {
-			if (numbers[i] == false) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/*
-	 * This method determines whether or not a given dice roll contains four consecutive values. 
-	 */
-	private boolean isLargeStraight(boolean[] numbers, int start, int finish) {
-		for (int i = start; i< finish; i++) {
-			if (numbers[i] == false) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	/*
