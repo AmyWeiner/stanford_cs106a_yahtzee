@@ -180,13 +180,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 * This method records the score on the game score card for the given category for that turn.
 	 */
 	private void recordScore(int category, int player, int score) {
-		for (int i = 0; i < N_CATEGORIES; i ++) {
 			if (scoreCard[category][player] == -1) {
 				scoreCard[category][player] = score;
 				ui.updateScorecard(category, player, score);
 			} 
 		}
-	}
 
 	/*
 	 * This method calculates the running game total.
