@@ -34,13 +34,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 * This method plays a single game of Yahtzee.
 	 */
 	private void playGame() {
-		int turns = 2;
-		for (int i = 0; i < N_SCORING_CATEGORIES; i++) {
+		int turns = N_SCORING_CATEGORIES;
+		//for (int i = 0; i < N_SCORING_CATEGORIES; i++) {
 			for (int j = 0; j < nPlayers; j ++) {
 				takeTurn(j, playerNames[j]);
 			}
 			turns --;
-		}
+		//}
 		for (int i = 0; i < nPlayers; i++) {
 			calculateUpperScore(i);
 			calculateLowerScore(i);
