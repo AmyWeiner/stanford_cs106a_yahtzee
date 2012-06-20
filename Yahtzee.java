@@ -44,6 +44,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		for (int i = 0; i < nPlayers; i++) {
 			calculateUpperScore(i);
 			calculateLowerScore(i);
+			calculateFinalTotal(i);
 		}
 		displayWinner();
 	}
@@ -325,6 +326,15 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		scoreCard[LOWER_SCORE][player] = total;
 		ui.updateScorecard(LOWER_SCORE, player, total);
+	}
+	
+	/*
+	 * This method calculates the final total score at the end of the game. 
+	 */
+	private void calculateFinalTotal(int player) {
+		int total = scoreCard[LOWER_SCORE][player] + scoreCard[UPPER_SCORE][player];
+		scoreCard[TOTAL][player] = total;
+		ui.updateScorecard(TOTAL, player, total);
 	}
 
 	/*
